@@ -25,12 +25,18 @@ function activate(context) {
 		
 	});
 
-	let openWindowDisposable = vscode.commands.registerCommand('hello-world.Open Board', () => {
+	let disposable2 = vscode.commands.registerCommand('hello_world.worldHello', () => {
+		console.log("hello mom")
 
-		
+		vscode.window.showInformationMessage("World Hello")
+	})
+
+	let disposable3 = vscode.commands.registerCommand("hello_world.Open Whiteboard", () => {
+
 	})
 
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable3); 
 }
 
 
