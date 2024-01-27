@@ -14,19 +14,57 @@
   "contributes": {
     "commands": [
         {
-          "command": "hello-world.helloWorld",
-          "title": "Hello World",
-          "category": "Hello",
+          "command": "vscodeasy.copytoclipboard0",
+          "title": "Copy to clipboard 0",
+          "category": "VSCodeasy",
           "icon": {
             "light": "",
             "dark": ""
           }
         },
         {
-          "command": "hello_world.worldHello",
-          "title": "World Hello",
-          "category": "Hello"
+          "command": "vscodeasy.pastefromclipboard0",
+          "title": "Paste from clipboard 0",
+          "category": "VSCodeasy",
+          "icon": {
+            "light": "",
+            "dark": ""
+          }
         }
+    ],
+    "viewContainers": {
+      "activitybar": [
+        {
+          "id": "hello-world",
+          "title": "Hello world"
+        }
+      ]
+    },
+    "views": {
+      "hello-world": [
+        {
+          "id": "hello-world1",
+          "name": "hello world 1"
+        },
+        {
+          "id": "hello-world2",
+          "name": "hello world 2"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "vscodeasy.copytoclipboard0",
+        "key": "ctrl+alt+C 1",
+        "mac": "cmd+alt+C 1",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.pastefromclipboard0",
+        "key": "ctrl+alt+V 1",
+        "mac": "cmd+alt+V 1",
+        "when": "editorTextFocus"
+      }
     ]
   },
   "scripts": {
@@ -43,9 +81,6 @@
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8"
   },
-  "commands": [
-
-  ],
   "menus": {
     "commandPallete": [
       {

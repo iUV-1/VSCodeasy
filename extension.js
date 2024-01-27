@@ -8,6 +8,9 @@ const vscode = require('vscode');
 /**
  * @param {vscode.ExtensionContext} context
  */
+
+let Codeasy_Clipboard = []
+
 function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
@@ -15,26 +18,58 @@ function activate(context) {
 	console.log('Congratulations, your extension "hello-world" is now active!');
 
 	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
+	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('hello-world.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-		console.log("Did stuff here")
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from hello_world!');
-	});
 
-	let disposable2 = vscode.commands.registerCommand('hello_world.worldHello', () => {
-		console.log("hello mom")
-
-		vscode.window.showInformationMessage("World Hello")
+	let disposable = vscode.commands.registerCommand('vscodeasy.copytoclipboard0', () => {
+		if(copyToAClipboard(0) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 0!")
+		}
+		console.log(Codeasy_Clipboard)
 	})
 
-	context.subscriptions.push(disposable);
+	let disposable2 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
+		editor.selections.forEach((selection) => {
+			// array starts at 0
+			edit.insert(selection.active, Codeasy_Clipboard[0])
+		});
+	})
+
+	context.subscriptions.push(disposable)
+	context.subscriptions.push(disposable2)
 }
 
 // This method is called when your extension is deactivated
 function deactivate() {}
+
+function readHighlighted() {
+	// https://stackoverflow.com/questions/73043106/how-to-get-highlighted-text-from-vscode-extension-api
+	const editor = vscode.window.activeTextEditor;
+	const selection = editor.selection;
+	if (selection && !selection.isEmpty){
+		const selectionRange = new vscode.Range(selection.start.line, selection.start.character, selection.end.line, selection.end.character);
+    	const highlighted = editor.document.getText(selectionRange);
+		console.log(highlighted)
+		return(highlighted)
+	} else {
+		return(null)
+	}
+}
+
+function copyToAClipboard(clipboard) {
+	let clipboard_text = readHighlighted()
+	if(clipboard_text == null) {
+		console.log("No highlighted text!!")
+		return -1;
+	}
+	Codeasy_Clipboard[clipboard] = clipboard_text
+}
+
+function pasteFromAClipboard(clipboard) {
+
+}
 
 module.exports = {
 	activate,
