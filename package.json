@@ -1,0 +1,49 @@
+{
+  "name": "hello-world",
+  "displayName": "hello_world",
+  "description": "hello world",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "hello-world.helloWorld",
+      "title": "Hello World"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8"
+  },
+  "commands": [
+    {
+      "command": "extension.sayHello",
+      "title": "Hello World"
+    }
+  ],
+  "menus": {
+    "commandPallete": [
+      {
+        "command": "extension.sayHello",
+        "when": "editorHasSelection"
+      }
+
+    ]
+  }
+}
