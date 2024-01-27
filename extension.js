@@ -24,6 +24,12 @@ function activate(context) {
 		vscode.window.showInformationMessage('Hello World from hello_world!');
 	});
 
+	let disposable2 = vscode.commands.registerCommand('hello_world.worldHello', () => {
+		console.log("hello mom")
+
+		vscode.window.showInformationMessage("World Hello")
+	})
+
 	context.subscriptions.push(disposable);
 }
 

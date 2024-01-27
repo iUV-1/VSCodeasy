@@ -12,10 +12,22 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "hello-world.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+        {
+          "command": "hello-world.helloWorld",
+          "title": "Hello World",
+          "category": "Hello",
+          "icon": {
+            "light": "",
+            "dark": ""
+          }
+        },
+        {
+          "command": "hello_world.worldHello",
+          "title": "World Hello",
+          "category": "Hello"
+        }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
@@ -32,10 +44,7 @@
     "@vscode/test-electron": "^2.3.8"
   },
   "commands": [
-    {
-      "command": "extension.sayHello",
-      "title": "Hello World"
-    }
+
   ],
   "menus": {
     "commandPallete": [
