@@ -22,9 +22,23 @@ function activate(context) {
 		console.log("Did stuff here")
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from hello_world!');
+		
 	});
 
+	let openWindowDisposable = vscode.commands.registerCommand('hello-world.Open Board', () => {
+
+		
+	})
+
 	context.subscriptions.push(disposable);
+}
+
+
+// Class that manages the white board
+class WhiteBoardManager {
+
+
+	
 }
 
 // This method is called when your extension is deactivated
