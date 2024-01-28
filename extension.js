@@ -58,6 +58,8 @@ function activate(context) {
 		console.log(Codeasy_Clipboard)
 	})
 
+
+
 	let disposable5 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
 		pasteFromAClipboard(editor, edit, 0)
 	})
@@ -82,6 +84,7 @@ function activate(context) {
 		}
 		console.log(Codeasy_Clipboard)
 	})
+
 
 	let disposable8 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard1', (editor, edit) => {
 		pasteFromAClipboard(editor, edit, 1)
@@ -130,12 +133,16 @@ function generateWebViewerHTML(context, webView) {
 				
                 width: 100%;
                 height: 100%;
-                background-color: white;
+                background-color: #252526;
+				
 			}
 			
 			body {
-				width: 100%;
-				height: 100%;
+				padding: 0px;
+			}
+
+			html {
+				padding 0px; 
 			}
 			
 
@@ -143,10 +150,24 @@ function generateWebViewerHTML(context, webView) {
                 
                 width: 100%;
                 height: 100%;
+
             }
+
+			.optionBar {
+				width: 100%;
+				background-color: #2d2d30;
+				padding: 10px; 
+			}
 		</style>
         </head>
 			<body>
+			<div class = "optionBar">
+			  <fieldgroup id="Select field">
+					<label name = "label">Pick Mode</label>
+					<input type ="radio" name="boardMode" id="drawButton" value="draw">Draw</input>	
+					<input type ="radio" name="boardMode" id="deleteButton" value="delete">Delete</input>	
+					</fieldgroup>
+			</div>
 			<div id="main_wrapper">
 				<canvas id = "main_canvas">
 				
