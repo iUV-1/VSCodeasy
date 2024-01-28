@@ -49,8 +49,29 @@ function activate(context) {
 */
 	})
 
-	context.subscriptions.push(disposable);
+	let disposable4 = vscode.commands.registerCommand('vscodeasy.copytoclipboard0', () => {
+		if(copyToAClipboard(0) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 0!")
+		}
+		console.log(Codeasy_Clipboard)
+	})
+
+	let disposable5 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
+		editor.selections.forEach((selection) => {
+			// array starts at 0
+			edit.insert(selection.active, Codeasy_Clipboard[0])
+		});
+	})
+
+	context.subscriptions.push(disposable)
+	context.subscriptions.push(disposable2)
+
 	context.subscriptions.push(disposable3); 
+	context.subscriptions.push(disposable4);
+
+	context.subscriptions.push(disposable5);
 }
 
 function getWebViewerOptions(extensionUri) {
@@ -81,12 +102,15 @@ function generateWebViewerHTML(context, webView) {
 				
                 width: 100%;
                 height: 100%;
-                background-color: white;
+                background-color: #252526;
 			}
 			
 			body {
-				width: 100%;
-				height: 100%;
+				padding: 0px;
+			}
+
+			html {
+				padding 0px; 
 			}
 			
 
@@ -94,10 +118,24 @@ function generateWebViewerHTML(context, webView) {
                 
                 width: 100%;
                 height: 100%;
+
             }
+
+			.optionBar {
+				width: 100%;
+				background-color: #2d2d30;
+				padding: 10px; 
+			}
 		</style>
         </head>
 			<body>
+			<div class = "optionBar">
+			  <fieldgroup id="Select field">
+					<label name = "label">Pick Mode</label>
+					<input type ="radio" name="boardMode" id="drawButton" value="draw">Draw</input>	
+					<input type ="radio" name="boardMode" id="deleteButton" value="delete">Delete</input>	
+					</fieldgroup>
+			</div>
 			<div id="main_wrapper">
 				<canvas id = "main_canvas">
 				
@@ -157,24 +195,6 @@ class WhiteBoardManager {
 	
 
 
-	let disposable = vscode.commands.registerCommand('vscodeasy.copytoclipboard0', () => {
-		if(copyToAClipboard(0) == -1){
-			vscode.window.showErrorMessage('No highlighted text found!');
-		} else{
-			vscode.window.showInformationMessage("Copied to clipboard 0!")
-		}
-		console.log(Codeasy_Clipboard)
-	})
-
-	let disposable2 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
-		editor.selections.forEach((selection) => {
-			// array starts at 0
-			edit.insert(selection.active, Codeasy_Clipboard[0])
-		});
-	})
-
-	context.subscriptions.push(disposable)
-	context.subscriptions.push(disposable2)
 }
 
 // This method is called when your extension is deactivated
