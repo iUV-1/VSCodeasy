@@ -58,6 +58,11 @@
         }
       ]
     },
+    "viewsWelcome": [
+    {
+      "view": "myCustomSidebar",
+      "contents": "Open the whiteboard by clicking the button below\n [Open Whiteboard](command:hello_world.Open Whiteboard)"
+    }],
     "views": {
       "myCustomSidebar": [
         {
@@ -115,7 +120,6 @@
         "command": "extension.sayHello",
         "when": "editorHasSelection"
       }
-
     ]
   }
 }

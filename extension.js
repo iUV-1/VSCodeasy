@@ -98,11 +98,8 @@ function activate(context) {
 	context.subscriptions.push(disposable8);
 
 	const treeDataProvider = new MyTreeDataProvider();
+	const treeDataWhiteboard = new MyTreeDataProvider();
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('mySidebar', treeDataProvider));
-
-	
-
-
 }
 
 function getWebViewerOptions(extensionUri) {
@@ -213,41 +210,38 @@ class MyTreeDataProvider {
 		this._onDidChangeTreeData = new vscode.EventEmitter();
 		this.onDidChangeTreeData = this._onDidChangeTreeData.event;
 		this.root = {label: "Codeasy_Clipboard", id: "root"}
-		this.children = [
-			{label: "clipboard0", id: "0"},
-			{label: "clipboard1", id: "1"}
-		];
+		this.children = [];
 	}
 
-
 	refresh() {
+		this.children = Codeasy_Clipboard.map((element, index) => {
+			return {label: index + ":" + element, id: index.toString()}
+		})
 		this._onDidChangeTreeData.fire();
 	}
 
     getTreeItem(element) {
 		const treeItem = new vscode.TreeItem(element.label);
         treeItem.id = element.id;
+		treeItem.iconPath = {
+			light: './clipboard.svg',
+			dark: './clipboard.svg'
+		}
         treeItem.collapsibleState = element.id === this.root.id ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.None;
         return treeItem;
     }
 
     getChildren(element) {
 		console.log(element)
+		if(this.children.length == 0) {
+			return [];
+		}
 		if(!element) return [this.root]
         if (element.id === this.root.id) {
             return this.children;
         }
         return [];
     }
-}
-
-function getWebviewContent() {
-    return `
-        <html>
-        <body>
-            <h1>Hello, World!</h1>
-        </body>
-        </html>`;
 }
 
 // This method is called when your extension is deactivated
