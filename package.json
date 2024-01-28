@@ -3,6 +3,7 @@
   "displayName": "hello_world",
   "description": "hello world",
   "version": "0.0.1",
+  "enabledProposedApi": true,
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -16,55 +17,53 @@
         {
           "command": "hello-world.helloWorld",
           "title": "Hello World",
-          "category": "Hello",
+          "category": "Hello"
         },
-      {
+        {
           "command": "vscodeasy.copytoclipboard0",
           "title": "Copy to clipboard 0",
           "category": "VSCodeasy",
           "icon": {
             "light": "",
             "dark": ""
-          },
-        
+          }
+        },
         {
           "command": "hello_world.worldHello",
           "title": "World Hello",
           "category": "Hello"
         }, 
-
         {
           "command": "hello_world.Open Whiteboard",
           "title": "Open New Whiteboard",
           "category": "Whiteboard"
         },
-      {
+        {
           "command": "vscodeasy.pastefromclipboard0",
           "title": "Paste from clipboard 0",
           "category": "VSCodeasy",
           "icon": {
             "light": "",
             "dark": ""
-          },
+          }
+        }
         
     ],
-    "viewContainers": {
+    "viewsContainers": {
       "activitybar": [
         {
-          "id": "hello-world",
-          "title": "Hello world"
+          "id": "myCustomSidebar",
+          "title": "My Custom Sidebar",
+          "icon": "./code-square.svg"
         }
       ]
     },
     "views": {
-      "hello-world": [
+      "myCustomSidebar": [
         {
-          "id": "hello-world1",
-          "name": "hello world 1"
-        },
-        {
-          "id": "hello-world2",
-          "name": "hello world 2"
+          "id": "mySidebar",
+          "name": "My Sidebar",
+          "icon": "./code-square.svg"
         }
       ]
     },
@@ -81,9 +80,20 @@
         "mac": "cmd+alt+V 1",
         "when": "editorTextFocus"
       },
-
-    ],
-  
+      {
+        "command": "vscodeasy.copytoclipboard1",
+        "key": "ctrl+alt+C 2",
+        "mac": "cmd+alt+C 2",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.pastefromclipboard1",
+        "key": "ctrl+alt+V 2",
+        "mac": "cmd+alt+V 2",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
   "scripts": {
     "lint": "eslint .",
     "pretest": "yarn run lint",
