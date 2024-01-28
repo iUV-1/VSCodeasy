@@ -14,23 +14,39 @@
   "contributes": {
     "commands": [
         {
+          "command": "hello-world.helloWorld",
+          "title": "Hello World",
+          "category": "Hello",
+        },
+      {
           "command": "vscodeasy.copytoclipboard0",
           "title": "Copy to clipboard 0",
           "category": "VSCodeasy",
           "icon": {
             "light": "",
             "dark": ""
-          }
-        },
+          },
+        
         {
+          "command": "hello_world.worldHello",
+          "title": "World Hello",
+          "category": "Hello"
+        }, 
+
+        {
+          "command": "hello_world.Open Whiteboard",
+          "title": "Open New Whiteboard",
+          "category": "Whiteboard"
+        },
+      {
           "command": "vscodeasy.pastefromclipboard0",
           "title": "Paste from clipboard 0",
           "category": "VSCodeasy",
           "icon": {
             "light": "",
             "dark": ""
-          }
-        }
+          },
+        
     ],
     "viewContainers": {
       "activitybar": [
@@ -64,9 +80,10 @@
         "key": "ctrl+alt+V 1",
         "mac": "cmd+alt+V 1",
         "when": "editorTextFocus"
-      }
-    ]
-  },
+      },
+
+    ],
+  
   "scripts": {
     "lint": "eslint .",
     "pretest": "yarn run lint",
@@ -81,6 +98,7 @@
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8"
   },
+
   "menus": {
     "commandPallete": [
       {
