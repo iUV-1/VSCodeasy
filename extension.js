@@ -103,6 +103,7 @@ function generateWebViewerHTML(context, webView) {
                 width: 100%;
                 height: 100%;
                 background-color: #252526;
+				
 			}
 			
 			body {
