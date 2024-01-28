@@ -48,6 +48,7 @@ console.log("Running script");
     document.addEventListener("mousedown", setPosition); 
     document.addEventListener("mouseenter", setPosition);
     console.log("Entered script");
+    
     //canvas_api.canvas.width = window.innerWidth;
     //canvas_api.height = window.innerHeight; 
     
