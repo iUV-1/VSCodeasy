@@ -11,9 +11,9 @@ const vscode = require('vscode');
 
 let Codeasy_Clipboard = []
 
+
 function activate(context) {
 	
-
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "hello-world" is now active!');
@@ -41,37 +41,70 @@ function activate(context) {
 		let whiteboard = WhiteBoardManager.getManager(); 
 		// show current panel or create new panel
 		WhiteBoardManager.createNewPanel(context);
-		
+	})
 /*
 		else {
 			WhiteBoardManager.showOldPanel();
 		}
 */
-	})
 
 	let disposable4 = vscode.commands.registerCommand('vscodeasy.copytoclipboard0', () => {
-		if(copyToAClipboard(0) == -1){
+		if (copyToAClipboard(0) == -1){
 			vscode.window.showErrorMessage('No highlighted text found!');
 		} else{
 			vscode.window.showInformationMessage("Copied to clipboard 0!")
+			treeDataProvider.refresh()
 		}
 		console.log(Codeasy_Clipboard)
 	})
 
+
+
 	let disposable5 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
-		editor.selections.forEach((selection) => {
-			// array starts at 0
-			edit.insert(selection.active, Codeasy_Clipboard[0])
-		});
+		pasteFromAClipboard(editor, edit, 0)
 	})
+
+	let disposable6 = vscode.commands.registerCommand('vscodeasy.openWebview', function () {
+		const panel = vscode.window.createWebviewPanel(
+			'webview', // Identifies the type of the webview. Used internally
+			'Webview Title', // Title of the panel displayed to the user
+			vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+			{} // Webview options. More on these later.
+		);
+
+		panel.webview.html = getWebviewContent();
+	});
+
+	let disposable7 = vscode.commands.registerCommand('vscodeasy.copytoclipboard1', () => {
+		if (copyToAClipboard(1) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 1!")
+			treeDataProvider.refresh()
+		}
+		console.log(Codeasy_Clipboard)
+	})
+
+
+	let disposable8 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard1', (editor, edit) => {
+		pasteFromAClipboard(editor, edit, 1)
+	})
+
 
 	context.subscriptions.push(disposable)
 	context.subscriptions.push(disposable2)
+	context.subscriptions.push(disposable3)
+	context.subscriptions.push(disposable4)
+	context.subscriptions.push(disposable5)
+	context.subscriptions.push(disposable6);
+	context.subscriptions.push(disposable7); 
+	context.subscriptions.push(disposable8);
 
-	context.subscriptions.push(disposable3); 
-	context.subscriptions.push(disposable4);
+	const treeDataProvider = new MyTreeDataProvider();
+	context.subscriptions.push(vscode.window.registerTreeDataProvider('mySidebar', treeDataProvider));
 
-	context.subscriptions.push(disposable5);
+	
+
 }
 
 function getWebViewerOptions(extensionUri) {
@@ -155,8 +188,8 @@ function generateWebViewerHTML(context, webView) {
 // Class that manages the white board
 class WhiteBoardManager {
 
-	static manager = undefined;
-	static panel =undefined;
+	// static manager = undefined;
+	// static panel = undefined;
 
 	constructor() {
 		
@@ -190,10 +223,51 @@ class WhiteBoardManager {
 
 		else {
 			return this.manager;
-				}
-	}
-	
+		}
+	}	
+}
 
+class MyTreeDataProvider {
+	constructor() {
+		this._onDidChangeTreeData = new vscode.EventEmitter();
+		this.onDidChangeTreeData = this._onDidChangeTreeData.event;
+		this.root = {label: "Codeasy_Clipboard", id: "root"}
+		this.children = [
+			{label: "clipboard0", id: "0"},
+			{label: "clipboard1", id: "1"}
+		];
+	}
+
+
+
+	refresh() {
+		this._onDidChangeTreeData.fire();
+	}
+
+    getTreeItem(element) {
+		const treeItem = new vscode.TreeItem(element.label);
+        treeItem.id = element.id;
+        treeItem.collapsibleState = element.id === this.root.id ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.None;
+        return treeItem;
+    }
+
+    getChildren(element) {
+		console.log(element)
+		if(!element) return [this.root]
+        if (element.id === this.root.id) {
+            return this.children;
+        }
+        return [];
+    }
+}
+
+function getWebviewContent() {
+    return `
+        <html>
+        <body>
+            <h1>Hello, World!</h1>
+        </body>
+        </html>`;
 
 }
 
@@ -225,8 +299,11 @@ function copyToAClipboard(clipboard) {
 	Codeasy_Clipboard[clipboard] = clipboard_text
 }
 
-function pasteFromAClipboard(clipboard) {
-
+function pasteFromAClipboard(editor, edit, clipboard) {
+	editor.selections.forEach((selection) => {
+		// array starts at 0
+		edit.insert(selection.active, Codeasy_Clipboard[clipboard])
+	});
 }
 
 module.exports = {
