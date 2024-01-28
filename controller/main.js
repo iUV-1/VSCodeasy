@@ -48,7 +48,7 @@ console.log("Running script");
     document.addEventListener("mousedown", setPosition); 
     document.addEventListener("mouseenter", setPosition);
     console.log("Entered script");
-    
+
     //canvas_api.canvas.width = window.innerWidth;
     //canvas_api.height = window.innerHeight; 
     
@@ -74,7 +74,7 @@ console.log("Running script");
 
     // function that deletes rectangular area of a canvas
     function deleteRec(e) {
-        canvas_api.clear_Rect(recStart.x, recStart.y, e.clientX - recStart.x, e.clientY - recStart.y )
+        canvas_api.clearRect(recStart.x, recStart.y, e.clientX - recStart.x, e.clientY - recStart.y )
 
     }
 
