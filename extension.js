@@ -9,6 +9,7 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+	
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -33,22 +34,130 @@ function activate(context) {
 
 	let disposable3 = vscode.commands.registerCommand("hello_world.Open Whiteboard", () => {
 
+		
+		let whiteboard = WhiteBoardManager.getManager(); 
+		// show current panel or create new panel
+		WhiteBoardManager.createNewPanel(context);
+		
+/*
+		else {
+			WhiteBoardManager.showOldPanel();
+		}
+*/
 	})
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposable3); 
 }
 
+function getWebViewerOptions(extensionUri) {
+	return {
+		enableScripts: true,
+		localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'controller')]
+
+	}
+}
+
+function generateWebViewerHTML(context, webView) {
+
+	let scriptUri = vscode.Uri.joinPath(context.extensionUri, "controller", "main.js"); 
+	
+	
+	let webUri = webView.asWebviewUri(scriptUri);
+
+	vscode.window.showInformationMessage(webUri); 
+	console.log(webUri); 
+	return `
+<!DOCTYPE html>
+		<html>
+        <head>
+            <meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            		<style>
+			#main_canvas {
+				
+                width: 100%;
+                height: 100%;
+                background-color: white;
+			}
+			
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+
+            #main_wrapper {
+                
+                width: 100%;
+                height: 100%;
+            }
+		</style>
+        </head>
+			<body>
+			<div id="main_wrapper">
+				<canvas id = "main_canvas">
+				
+				</canvas>
+			</div>
+
+
+			<script src="${webUri}"></script>
+		</body>
+			
+		</html>
+
+
+	`
+}
 
 // Class that manages the white board
 class WhiteBoardManager {
 
+	static manager = undefined;
+	static panel =undefined;
 
+	constructor() {
+		
+		
+	}
+	
+	static createNewPanel(context) {
+		
+
+		this.panel = vscode.window.createWebviewPanel("whiteboard", "White Board", vscode.ViewColumn.One, getWebViewerOptions(context.extensionUri));
+		this.panel.webview.html = generateWebViewerHTML(context, this.panel.webview); 
+		
+
+	}
+
+
+
+	static showOldPanel() {
+		if (this.panel != undefined) {
+			
+			this.panel.reveal(vscode.ViewColumn.One); 
+		}
+
+	}
+
+	static getManager() {
+		if (this.manager == undefined) {
+			this.manager = new WhiteBoardManager();
+			return this.manager;
+		}
+
+		else {
+			return this.manager;
+				}
+	}
 	
 }
 
 // This method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() {
+
+}
 
 module.exports = {
 	activate,
