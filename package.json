@@ -36,7 +36,7 @@
         {
           "command": "hello_world.Open Whiteboard",
           "title": "Open New Whiteboard",
-          "category": "Whiteboard"
+          "category": "VSCodeasy"
         },
         {
           "command": "vscodeasy.pastefromclipboard0",
@@ -53,7 +53,7 @@
       "activitybar": [
         {
           "id": "myCustomSidebar",
-          "title": "My Custom Sidebar",
+          "title": "VSCodeasy Sidebar",
           "icon": "./code-square.svg"
         }
       ]
@@ -67,7 +67,7 @@
       "myCustomSidebar": [
         {
           "id": "mySidebar",
-          "name": "My Sidebar",
+          "name": "VSCodeasy Sidebar",
           "icon": "./code-square.svg"
         }
       ]
@@ -95,6 +95,42 @@
         "command": "vscodeasy.pastefromclipboard1",
         "key": "ctrl+alt+V 2",
         "mac": "cmd+alt+V 2",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.copytoclipboard2",
+        "key": "ctrl+alt+C 3",
+        "mac": "cmd+alt+C 3",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.pastefromclipboard2",
+        "key": "ctrl+alt+V 3",
+        "mac": "cmd+alt+V 3",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.copytoclipboard3",
+        "key": "ctrl+alt+C 4",
+        "mac": "cmd+alt+C 4",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.pastefromclipboard3",
+        "key": "ctrl+alt+V 4",
+        "mac": "cmd+alt+V 4",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.copytoclipboard4",
+        "key": "ctrl+alt+C 5",
+        "mac": "cmd+alt+C 5",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscodeasy.pastefromclipboard4",
+        "key": "ctrl+alt+V 5",
+        "mac": "cmd+alt+V 5",
         "when": "editorTextFocus"
       }
     ]

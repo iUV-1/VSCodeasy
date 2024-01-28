@@ -21,33 +21,14 @@ function activate(context) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('hello-world.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-		console.log("Did stuff here")
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from hello_world!');
-		
-	});
-
-	let disposable2 = vscode.commands.registerCommand('hello_world.worldHello', () => {
-		console.log("hello mom")
-
-		vscode.window.showInformationMessage("World Hello")
-	})
 
 	let disposable3 = vscode.commands.registerCommand("hello_world.Open Whiteboard", () => {
-
-		
 		let whiteboard = WhiteBoardManager.getManager(); 
 		// show current panel or create new panel
 		WhiteBoardManager.createNewPanel(context);
 	})
-/*
-		else {
-			WhiteBoardManager.showOldPanel();
-		}
-*/
 
+	// 0st clipboard
 	let disposable4 = vscode.commands.registerCommand('vscodeasy.copytoclipboard0', () => {
 		if (copyToAClipboard(0) == -1){
 			vscode.window.showErrorMessage('No highlighted text found!');
@@ -58,23 +39,11 @@ function activate(context) {
 		console.log(Codeasy_Clipboard)
 	})
 
-
-
 	let disposable5 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard0', (editor, edit) => {
 		pasteFromAClipboard(editor, edit, 0)
 	})
 
-	let disposable6 = vscode.commands.registerCommand('vscodeasy.openWebview', function () {
-		const panel = vscode.window.createWebviewPanel(
-			'webview', // Identifies the type of the webview. Used internally
-			'Webview Title', // Title of the panel displayed to the user
-			vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-			{} // Webview options. More on these later.
-		);
-
-		panel.webview.html = getWebviewContent();
-	});
-
+	// 1nd clipboard
 	let disposable7 = vscode.commands.registerCommand('vscodeasy.copytoclipboard1', () => {
 		if (copyToAClipboard(1) == -1){
 			vscode.window.showErrorMessage('No highlighted text found!');
@@ -85,24 +54,65 @@ function activate(context) {
 		console.log(Codeasy_Clipboard)
 	})
 
-
 	let disposable8 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard1', (editor, edit) => {
 		pasteFromAClipboard(editor, edit, 1)
 	})
 
+	// 2nd clipboard
+	let disposable9 = vscode.commands.registerCommand('vscodeasy.copytoclipboard2', () => {
+		if (copyToAClipboard(2) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 2!")
+			treeDataProvider.refresh()
+		}
+		console.log(Codeasy_Clipboard)
+	})
+	context.subscriptions.push(disposable9);
+	let disposable10 =vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard2', (editor, edit) => {
+		pasteFromAClipboard(editor, edit, 2)
+	})
+	context.subscriptions.push(disposable10);
+	// 3rd clipboard
+	let disposable11 = vscode.commands.registerCommand('vscodeasy.copytoclipboard3', () => {
+		if (copyToAClipboard(3) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 3!")
+			treeDataProvider.refresh()
+		}
+		console.log(Codeasy_Clipboard)
+	})
+	context.subscriptions.push(disposable11);
+	let disposable12 = vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard3', (editor, edit) => {
+		pasteFromAClipboard(editor, edit, 3)
+	})
+	context.subscriptions.push(disposable12);
+	// 4rd clipboard
+	context.subscriptions.push(vscode.commands.registerCommand('vscodeasy.copytoclipboard4', () => {
+		if (copyToAClipboard(4) == -1){
+			vscode.window.showErrorMessage('No highlighted text found!');
+		} else{
+			vscode.window.showInformationMessage("Copied to clipboard 4!")
+			treeDataProvider.refresh()
+		}
+		console.log(Codeasy_Clipboard)
+	}));
+	context.subscriptions.push(vscode.commands.registerTextEditorCommand('vscodeasy.pastefromclipboard4', (editor, edit) => {
+		pasteFromAClipboard(editor, edit, 4)
+	}));
 
-	context.subscriptions.push(disposable)
-	context.subscriptions.push(disposable2)
 	context.subscriptions.push(disposable3)
 	context.subscriptions.push(disposable4)
 	context.subscriptions.push(disposable5)
-	context.subscriptions.push(disposable6);
 	context.subscriptions.push(disposable7); 
 	context.subscriptions.push(disposable8);
 
+	// Sidebar tree
 	const treeDataProvider = new MyTreeDataProvider();
-	const treeDataWhiteboard = new MyTreeDataProvider();
 	context.subscriptions.push(vscode.window.registerTreeDataProvider('mySidebar', treeDataProvider));
+
+	
 }
 
 function getWebViewerOptions(extensionUri) {
