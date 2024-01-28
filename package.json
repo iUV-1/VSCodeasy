@@ -15,6 +15,11 @@
   "contributes": {
     "commands": [
         {
+          "command": "hello-world.helloWorld",
+          "title": "Hello World",
+          "category": "Hello"
+        },
+        {
           "command": "vscodeasy.copytoclipboard0",
           "title": "Copy to clipboard 0",
           "category": "VSCodeasy",
@@ -24,6 +29,16 @@
           }
         },
         {
+          "command": "hello_world.worldHello",
+          "title": "World Hello",
+          "category": "Hello"
+        }, 
+        {
+          "command": "hello_world.Open Whiteboard",
+          "title": "Open New Whiteboard",
+          "category": "Whiteboard"
+        },
+        {
           "command": "vscodeasy.pastefromclipboard0",
           "title": "Paste from clipboard 0",
           "category": "VSCodeasy",
@@ -31,21 +46,8 @@
             "light": "",
             "dark": ""
           }
-        },
-        {
-          "command": "vscodeasy.openWebview",
-          "title": "open webview",
-          "category": "VSCodeasy",
-          "icon": {
-            "light": "",
-            "dark": ""
-         }
-        },
-        {
-          "command": "extension.openSidebarWebView",
-          "title": "open sidebar webview",
-          "category": "VSCodeasy"
         }
+        
     ],
     "viewsContainers": {
       "activitybar": [
@@ -106,6 +108,7 @@
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8"
   },
+
   "menus": {
     "commandPallete": [
       {
